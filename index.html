@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estudo — Fisioterapia Neuropediátrica | Prova</title>
+<style>
+:root{
+  --rox:#6d4ac4; --rox-esc:#4b2e94; --rox-claro:#efe9fb; --verde:#1aa37a; --verde-claro:#e3f6ef;
+  --bg:#f6f4fc; --card:#ffffff; --txt:#241b33; --txt2:#5b5170;
+  --borda:#e2d9f3; --amarelo:#fff3d4; --amarelo-b:#e8a91d;
+  --vermelho:#fdeaea; --vermelho-b:#e0524a; --sombra:0 2px 14px rgba(109,74,196,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;font-size:16px}
+header{background:linear-gradient(135deg,var(--rox) 0%,#9a6ff0 60%,var(--verde) 130%);color:#fff;padding:28px 20px;position:relative;overflow:hidden}
+header::after{content:"";position:absolute;bottom:-50px;right:-30px;width:220px;height:220px;background:rgba(255,255,255,.08);border-radius:50%}
+header h1{font-size:1.7rem;font-weight:700;display:flex;align-items:center;gap:10px}
+header p{opacity:.95;margin-top:6px;font-size:.98rem;max-width:700px}
+.wrap{display:flex;max-width:1180px;margin:0 auto;gap:24px;padding:24px 16px}
+nav{flex:0 0 250px;position:sticky;top:16px;align-self:flex-start;background:var(--card);border-radius:14px;box-shadow:var(--sombra);padding:14px;max-height:calc(100vh - 32px);overflow-y:auto}
+nav h2{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--txt2);margin:10px 8px 6px}
+nav a{display:block;padding:8px 10px;border-radius:8px;color:var(--txt);text-decoration:none;font-size:.9rem;transition:.15s;border-left:3px solid transparent}
+nav a:hover{background:var(--rox-claro)}
+nav a.active{background:var(--rox-claro);border-left-color:var(--rox);font-weight:600;color:var(--rox-esc)}
+.navtoggle{display:none}
+main{flex:1;min-width:0}
+section{background:var(--card);border-radius:14px;box-shadow:var(--sombra);padding:26px 28px;margin-bottom:22px;scroll-margin-top:14px}
+section>h2{font-size:1.45rem;color:var(--rox-esc);margin-bottom:4px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.tag{font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:3px 9px;border-radius:20px;background:var(--rox-claro);color:var(--rox-esc)}
+.lead{color:var(--txt2);margin:8px 0 18px;font-size:.96rem}
+h3{font-size:1.1rem;color:var(--rox);margin:22px 0 8px;padding-bottom:5px;border-bottom:2px solid var(--rox-claro)}
+h4{font-size:.98rem;color:var(--rox-esc);margin:14px 0 4px}
+p{margin-bottom:10px}
+ul,ol{margin:6px 0 12px 22px}
+li{margin-bottom:5px}
+strong{color:var(--rox-esc)}
+.muted{color:var(--txt2);font-size:.9rem}
+.box{border-radius:10px;padding:14px 16px;margin:14px 0;border-left:4px solid}
+.prova{background:var(--amarelo);border-color:var(--amarelo-b)}
+.prova::before{content:"⭐ CAI NA PROVA";display:block;font-size:.7rem;font-weight:800;letter-spacing:.05em;color:#9c6b00;margin-bottom:6px}
+.dica{background:var(--rox-claro);border-color:var(--rox)}
+.dica::before{content:"💡 ENTENDA";display:block;font-size:.7rem;font-weight:800;letter-spacing:.05em;color:var(--rox-esc);margin-bottom:6px}
+.ok{background:var(--verde-claro);border-color:var(--verde)}
+.ok::before{content:"✓ PONTO-CHAVE";display:block;font-size:.7rem;font-weight:800;color:#0d7355;margin-bottom:6px}
+.nao{background:var(--vermelho);border-color:var(--vermelho-b)}
+.nao::before{content:"⚠ ATENÇÃO / NÃO CONFUNDIR";display:block;font-size:.7rem;font-weight:800;color:#b53228;margin-bottom:6px}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.88rem}
+th,td{text-align:left;padding:9px 12px;border:1px solid var(--borda);vertical-align:top}
+th{background:var(--rox-claro);color:var(--rox-esc);font-weight:600}
+tbody tr:nth-child(even){background:#faf8ff}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.chip{background:var(--rox-claro);color:var(--rox-esc);padding:6px 12px;border-radius:20px;font-size:.85rem;font-weight:500}
+.chip.g{background:var(--verde-claro);color:#0d7355}
+/* Semáforo */
+.traffic{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+.tl{flex:1;min-width:180px;border-radius:10px;padding:12px 14px;color:#fff;font-size:.88rem}
+.tl b{display:block;margin-bottom:4px;font-size:.95rem}
+.tl.green{background:#1aa37a}.tl.yellow{background:#e8a91d}.tl.red{background:#e0524a}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:16px}
+.fc{background:linear-gradient(135deg,#fff,#f3eeff);border:1px solid var(--borda);border-radius:12px;padding:18px;cursor:pointer;min-height:120px;display:flex;align-items:center;justify-content:center;text-align:center;transition:.2s;position:relative}
+.fc:hover{box-shadow:var(--sombra);transform:translateY(-2px)}
+.fc .q{font-weight:600;color:var(--rox-esc)}
+.fc .a{display:none;color:var(--txt);font-size:.92rem}
+.fc.flip .q{display:none}.fc.flip .a{display:block}
+.fc::after{content:"toque p/ ver";position:absolute;bottom:6px;right:10px;font-size:.62rem;color:var(--txt2);opacity:.6}
+.fc.flip::after{content:"toque p/ voltar"}
+.quiz{margin-top:14px}
+.q-item{background:#faf8ff;border:1px solid var(--borda);border-radius:10px;padding:16px;margin-bottom:14px}
+.q-item p.qt{font-weight:600;margin-bottom:10px}
+.opt{display:block;padding:9px 12px;margin:6px 0;border:1px solid var(--borda);border-radius:8px;cursor:pointer;transition:.15s;background:#fff}
+.opt:hover{border-color:var(--rox)}
+.opt.correct{background:var(--verde-claro);border-color:var(--verde);font-weight:600}
+.opt.wrong{background:var(--vermelho);border-color:var(--vermelho-b)}
+.expl{display:none;margin-top:8px;padding:10px;background:var(--rox-claro);border-radius:8px;font-size:.88rem}
+.expl.show{display:block}
+.searchbar{position:sticky;top:0;z-index:40;background:var(--card);border-radius:14px;box-shadow:var(--sombra);padding:14px 16px;margin-bottom:22px;border:1px solid var(--borda)}
+.searchbar h2{font-size:1.1rem;color:var(--rox-esc);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.search-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.search-row input{flex:1;min-width:160px;padding:11px 14px;border:2px solid var(--borda);border-radius:10px;font-size:1rem;outline:none;transition:.15s}
+.search-row input:focus{border-color:var(--rox)}
+.search-btn{background:var(--rox);color:#fff;border:none;border-radius:10px;padding:11px 14px;font-size:1rem;cursor:pointer;font-weight:600;transition:.15s}
+.search-btn:hover{background:var(--rox-esc)}
+.search-btn.ghost{background:var(--rox-claro);color:var(--rox-esc)}
+.search-info{margin-top:8px;font-size:.85rem;color:var(--txt2);min-height:18px}
+.search-info b{color:var(--rox-esc)}
+.search-sugg{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px}
+.search-sugg span{background:var(--rox-claro);color:var(--rox-esc);padding:4px 11px;border-radius:20px;font-size:.8rem;cursor:pointer;transition:.15s}
+.search-sugg span:hover{background:var(--rox);color:#fff}
+mark.hit{background:var(--amarelo-b);color:#3a2c00;border-radius:3px;padding:0 2px}
+mark.hit.current{background:var(--verde);color:#fff;box-shadow:0 0 0 3px rgba(26,163,122,.3)}
+footer{text-align:center;padding:30px 16px;color:var(--txt2);font-size:.85rem}
+.top{position:fixed;bottom:20px;right:20px;background:var(--rox);color:#fff;width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.2);font-size:1.3rem;z-index:50}
+@media(max-width:860px){
+  .wrap{flex-direction:column;padding:14px 10px}
+  nav{position:static;flex:none;width:100%;max-height:none}
+  .navtoggle{display:block;width:100%;background:var(--rox);color:#fff;border:none;padding:12px;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer;margin-bottom:6px}
+  nav .navlist{display:none}
+  nav.open .navlist{display:block}
+  section{padding:20px 16px}
+  header h1{font-size:1.35rem}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>🧠 Fisioterapia Neuropediátrica — Guia de Prova</h1>
+  <p>Resumo completo dos materiais: CIF, Paralisia Cerebral, AME, Distrofias Musculares, Mielomeningocele, Síndrome de Down e escalas de avaliação. Pontos de prova destacados. Bons estudos, Laura! 💜</p>
+</header>
+
+<div class="wrap">
+  <nav id="nav">
+    <button class="navtoggle" onclick="document.getElementById('nav').classList.toggle('open')">☰ Índice dos temas</button>
+    <div class="navlist">
+      <h2>Comece por aqui</h2>
+      <a href="#resumao">🎯 Resumão da prova</a>
+      <h2>Base conceitual</h2>
+      <a href="#cif">1. CIF & Neuroplasticidade</a>
+      <a href="#neurogenese">2. Neurogênese & SNC</a>
+      <h2>Paralisia Cerebral</h2>
+      <a href="#pc-def">3. PC — definição & causas</a>
+      <a href="#pc-class">4. PC — classificação</a>
+      <a href="#pc-diag">5. PC — diagnóstico precoce</a>
+      <a href="#pc-interv">6. PC — intervenção</a>
+      <h2>Outras condições</h2>
+      <a href="#ame">7. AME</a>
+      <a href="#distrofias">8. Distrofias musculares</a>
+      <a href="#mmc">9. Mielomeningocele</a>
+      <a href="#down">10. Síndrome de Down</a>
+      <h2>Avaliação</h2>
+      <a href="#escalas">11. Escalas (resumo)</a>
+      <h2>Revisão</h2>
+      <a href="#flashcards">🃏 Flashcards</a>
+      <a href="#quiz">✍️ Quiz</a>
+    </div>
+  </nav>
+
+  <main>
+
+  <!-- PESQUISA -->
+  <div class="searchbar" id="searchbar">
+    <h2>🔍 Pesquisar no material</h2>
+    <div class="search-row">
+      <input type="text" id="searchInput" placeholder="Digite um termo: ex. GMFCS, espasticidade, distrofina, Gowers…" autocomplete="off">
+      <button class="search-btn" id="searchPrev" title="Anterior">‹</button>
+      <button class="search-btn" id="searchNext" title="Próximo">›</button>
+      <button class="search-btn ghost" id="searchClear" title="Limpar">✕</button>
+    </div>
+    <div class="search-info" id="searchInfo">Busque qualquer palavra — os resultados ficam destacados e você navega com ‹ ›.</div>
+    <div class="search-sugg" id="searchSugg">
+      <span>GMFCS</span><span>espasticidade</span><span>distrofina</span><span>Gowers</span>
+      <span>HINE</span><span>CIF</span><span>SMN</span><span>ácido fólico</span>
+      <span>discinética</span><span>vigilância do quadril</span><span>hidrocefalia</span>
+      <span>mielinização</span><span>glia radial</span><span>trissomia</span><span>GMFM</span>
+    </div>
+  </div>
+
+  <!-- RESUMÃO -->
+  <section id="resumao">
+    <h2>🎯 Resumão da prova <span class="tag">leia primeiro</span></h2>
+    <p class="lead">Os pontos mais prováveis de caírem. Se estiver sem tempo, domine estes.</p>
+    <ol>
+      <li><strong>PC = definição de Rosenbaum (2007):</strong> grupo de desordens <em>permanentes</em> do movimento/postura por distúrbio <strong>não progressivo</strong> no cérebro <strong>em desenvolvimento (fetal/infantil)</strong>. A lesão não progride, mas as consequências músculo-esqueléticas sim.</li>
+      <li><strong>3 tipos de PC pelo distúrbio motor:</strong> Espástica (↑tônus, lesão no <em>córtex</em>) · Discinética/atetoide-distônica (tônus flutuante, <em>núcleos da base</em>) · Atáxica (↓tônus, incoordenação, <em>cerebelo</em>).</li>
+      <li><strong>GMFCS</strong> = função motora grossa em <strong>5 níveis</strong> (I melhor → V pior), foco em sentar e andar. <strong>MACS</strong> = habilidade manual (5 níveis, 4–18 anos; Mini-MACS 1–4 anos).</li>
+      <li><strong>Diagnóstico precoce de PC (antes dos 6 meses):</strong> tripé <strong>RMN + GMs de Prechtl (98% sens.) + HINE (90% sens.)</strong> — Novak et al., 2017.</li>
+      <li><strong>HINE:</strong> 26 itens, 0–3 pontos, bebês de 2–24 meses. Corte: &lt;57 aos 3 meses prevê PC; &lt;40 em qualquer idade = alto risco.</li>
+      <li><strong>Intervenção atual = semáforo de evidências</strong> (verde FAÇA / amarelo CAUTELA / vermelho NÃO FAÇA) + tripé da Prática Baseada em Evidência. Foco mudou de "inibir reflexos/normalizar tônus" para <strong>atividade e participação</strong>.</li>
+      <li><strong>Vigilância do quadril:</strong> GMFCS III, IV e V têm maior risco de subluxação/luxação (espasticidade de adutores/flexores).</li>
+      <li><strong>AME:</strong> autossômica recessiva, gene <strong>SMN1</strong> (cromossomo 5q), proteína SMN. Quanto mais precoce, mais grave. Tipos 0–4. Tratamentos: Zolgensma (gênico), Spinraza (intratecal), Risdiplam (oral).</li>
+      <li><strong>Distrofia de Duchenne:</strong> ausência de <strong>distrofina</strong> (ligada ao X), a + comum e + grave da infância. <strong>Sinal de Gowers</strong> e <strong>pseudo-hipertrofia de panturrilha</strong>. Becker = forma mais branda (distrofina presente, mas anormal).</li>
+      <li><strong>Mielomeningocele:</strong> 85% dos defeitos do tubo neural; falha no fechamento (4ª semana); região + comum = <strong>lombossacra</strong>. Prevenção = <strong>ácido fólico</strong> (0,4 mg/dia pré-concepção, ↓70–80%). Quanto + alto o nível, pior o prognóstico de marcha.</li>
+      <li><strong>Síndrome de Down (trissomia do 21):</strong> alteração cromossômica + prevalente; marca = <strong>hipotonia + frouxidão ligamentar</strong> → atraso motor.</li>
+      <li><strong>CIF (OMS):</strong> modelo <strong>biopsicossocial</strong>; mesmo diagnóstico ≠ mesma funcionalidade. Componentes: Funções/Estruturas, Atividade, Participação + Fatores Ambientais e Pessoais. Complementa a CID, não substitui.</li>
+      <li><strong>Neurogênese (6 fases):</strong> neurulação → prosencéfalo → proliferação (matriz germinativa) → migração (glia radial) → organização sináptica → mielinização. Organização e mielinização ocorrem majoritariamente <strong>após o nascimento</strong> → RN tem SNC imaturo.</li>
+    </ol>
+  </section>
+
+  <!-- 1. CIF -->
+  <section id="cif">
+    <h2>1. CIF & Neuroplasticidade <span class="tag">base de tudo</span></h2>
+    <p class="lead">O modelo que organiza todo o raciocínio clínico em neuropediatria.</p>
+
+    <h3>CIF — Classificação Internacional de Funcionalidade</h3>
+    <ul>
+      <li>Desenvolvida pela <strong>OMS</strong>; modelo <strong>biopsicossocial</strong>, universal. <strong>Complementa a CID</strong> (diagnóstico), não a substitui.</li>
+      <li>Muda a concepção de "consequência da doença" para "<strong>componente de saúde</strong>".</li>
+    </ul>
+    <div class="dica">
+      <strong>O paradoxo clínico:</strong> dois pacientes com o <em>mesmo diagnóstico</em> podem funcionar de formas diferentes. O diagnóstico médico pode ser igual, mas a experiência com a funcionalidade muda conforme o contexto.
+    </div>
+
+    <h4>Componentes da CIF</h4>
+    <table>
+      <thead><tr><th>Componente</th><th>O que avalia</th><th>Problema gerado</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Funções e Estruturas do corpo</strong></td><td>Funções fisiológicas e partes anatômicas (tônus, força, ADM, reflexos)</td><td>Deficiência (perda/desvio)</td></tr>
+        <tr><td><strong>Atividade</strong></td><td>Execução de uma tarefa pelo indivíduo (sentar, andar, vestir-se)</td><td>Limitação de atividade</td></tr>
+        <tr><td><strong>Participação</strong></td><td>Envolvimento em situações reais de vida (escola, lazer, social)</td><td>Restrição à participação</td></tr>
+        <tr><td><strong>Fatores Ambientais</strong></td><td>Ambiente físico, social e atitudinal</td><td>Podem ser <em>barreira</em> ou <em>facilitador</em></td></tr>
+        <tr><td><strong>Fatores Pessoais</strong></td><td>Idade, sexo, motivação, hábitos, escolaridade</td><td>Contexto individual</td></tr>
+      </tbody>
+    </table>
+    <div class="box prova">
+      Frase típica de prova: "dois indivíduos com a mesma condição clínica podem ter semelhanças na estrutura/função, mas <strong>diferentes limitações de atividade e restrições à participação</strong>, conforme o contexto pessoal e ambiental".
+    </div>
+
+    <h3>Neuroplasticidade / diagnóstico precoce</h3>
+    <p>O diagnóstico precoce permite intervenção que <strong>otimiza a neuroplasticidade</strong> e previne complicações, além de apoio à família. Por isso recomenda-se o diagnóstico (mesmo provisório, de "alto risco de PC") o mais cedo possível.</p>
+  </section>
+
+  <!-- 2. NEUROGÊNESE -->
+  <section id="neurogenese">
+    <h2>2. Neurogênese & desenvolvimento do SNC <span class="tag">essencial</span></h2>
+    <p class="lead">Como o sistema nervoso é construído — e por que o recém-nascido ainda tem o SNC imaturo.</p>
+
+    <h3>As forças do desenvolvimento</h3>
+    <p>Influências <strong>genéticas e ambientais</strong> atuam sobre as células durante todo o processo, agindo de três formas: <strong>1) estimulando o crescimento (proliferação), 2) guiando a movimentação (migração) e 3) desencadeando a diferenciação.</strong> Alguns processos terminam no útero; outros continuam <strong>após o nascimento</strong>.</p>
+    <div class="dica">
+      Ideia central: <strong>o nascimento é apenas um ponto no meio da construção</strong>. Proliferação e migração terminam antes de nascer, mas <strong>organização sináptica e mielinização ocorrem majoritariamente fora do útero</strong> — por isso o RN ainda não tem o SNC completamente desenvolvido.
+    </div>
+
+    <h3>As 6 fases (decorar a ordem e o cronograma)</h3>
+    <table>
+      <thead><tr><th>Fase</th><th>Quando</th><th>O que acontece / onde</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1. Neurulação</strong></td><td>Período embrionário</td><td>Formação do tubo neural</td></tr>
+        <tr><td><strong>2. Desenvolvimento do prosencéfalo</strong></td><td>Gestação inicial</td><td>Divisão/expansão das vesículas → forma física básica do cérebro</td></tr>
+        <tr><td><strong>3. Proliferação neuronal</strong></td><td>Semanas 4–16</td><td>Geração em massa de neurônios e glia na <strong>matriz germinativa</strong> (zonas ventricular/subventricular)</td></tr>
+        <tr><td><strong>4. Migração neuronal</strong></td><td>Semanas 8–36</td><td>Células migram pela <strong>glia radial</strong> ("rodovias") até o córtex; completa-se por volta da 34ª–36ª semana</td></tr>
+        <tr><td><strong>5. Organização neuronal</strong></td><td>5º mês de gestação → 1º ano</td><td>Alinhar → ramificar (dendritos/axônios) → conectar (sinapses). <strong>Janela crítica</strong>: cérebro muito plástico e vulnerável</td></tr>
+        <tr><td><strong>6. Mielinização</strong></td><td>2º trimestre → vida adulta</td><td>Aquisição da bainha de mielina; maior parte das fibras conclui ~2º ano de vida</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Mielinização e controle motor</h3>
+    <ul>
+      <li>A mielina isola o axônio → sinal <strong>rápido e direcionado</strong>. Sem mielina, o impulso "vaza" → explica a <strong>falta de coordenação do recém-nascido</strong>.</li>
+      <li><strong>Sistema subcorticoespinhal (ascendente):</strong> mieliniza na vida fetal (24–34 sem IG) → mantém postura ereta e tônus.</li>
+      <li><strong>Sistema corticoespinhal (descendente):</strong> inicia na 32ª sem IG até o 2º ano → responsável pelo <strong>movimento seletivo</strong>.</li>
+      <li>SNP é o primeiro a receber mielina (raiz motora antes da sensorial).</li>
+    </ul>
+    <p class="muted"><strong>Tônus flexor fisiológico:</strong> torna-se aparente primeiro nos MMII (30–32 sem IG) e depois nos MMSS (36 sem IG).</p>
+
+    <h3>Vias eferentes somáticas (saída motora)</h3>
+    <table>
+      <thead><tr><th>Piramidais (rota direta)</th><th>Extrapiramidais (rota indireta/suporte)</th></tr></thead>
+      <tbody>
+        <tr><td>Passam pelas pirâmides bulbares. <strong>Córtico-espinhal</strong> (córtex→medula) e <strong>córtico-nuclear</strong> (córtex→núcleos dos nervos cranianos)</td><td>Não passam pelas pirâmides. <strong>Rubro-espinhal</strong> (motricidade distal), <strong>tecto-espinhal</strong> (reflexos visuais), <strong>vestíbulo-espinhal</strong> (equilíbrio) e <strong>retículo-espinhal</strong> (o + importante — postura básica de "partida")</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Fatores de risco para o desenvolvimento</h3>
+    <p>Condições biológicas ou ambientais que aumentam a chance de déficits. A intensidade/tipo pode ou não trazer prejuízo definitivo.</p>
+    <ul>
+      <li><strong>Biológicos/neonatais:</strong> prematuridade (sobretudo &lt;32 sem), Apgar &lt;3 no 5º min/asfixia, convulsão, HPIV graus III e IV, perímetro cefálico anormal, infecção congênita (STORCH + Zika), hiperbilirrubinemia grave (kernicterus → surdez), displasia broncopulmonar.</li>
+      <li><strong>Ambientais/psicossociais:</strong> violência (física, sexual, psicológica, conjugal), uso de álcool/substâncias pelos cuidadores e, sobretudo, a <strong>pobreza extrema</strong> — o fator psicossocial mais impactante, que atua como multiplicador de danos.</li>
+    </ul>
+
+    <h3>Desenvolvimento motor típico × atípico</h3>
+    <table>
+      <thead><tr><th>Típico</th><th>Atípico</th></tr></thead>
+      <tbody>
+        <tr><td>Reflexos primitivos suprimidos; reações de equilíbrio integradas</td><td>Permanência de reflexos primitivos; insuficiência das reações de equilíbrio</td></tr>
+        <tr><td>Normotonia; ausência de reflexos tônicos</td><td>Hipotonia, hipertonia ou flutuação; presença de reflexos tônicos</td></tr>
+        <tr><td>Movimentos variados, coordenados e seletivos; controla os 3 planos</td><td>Movimentos estereotipados, pobres, sem seletividade; padrões compensatórios e fixações; alterações musculoesqueléticas</td></tr>
+      </tbody>
+    </table>
+    <div class="box prova">
+      Pegadinha frequente: o desenvolvimento motor da criança "não é só aprendizado — é o reflexo visível da <strong>mielinização invisível</strong>". E lembre: <strong>migração</strong> usa a <strong>glia radial</strong>; <strong>proliferação</strong> ocorre na <strong>matriz germinativa</strong>.
+    </div>
+  </section>
+
+  <!-- 3. PC DEF -->
+  <section id="pc-def">
+    <h2>3. Paralisia Cerebral — definição & causas <span class="tag">essencial</span></h2>
+
+    <h3>Definição (Rosenbaum et al., 2007)</h3>
+    <div class="ok">
+      "A PC descreve um grupo de <strong>distúrbios permanentes</strong> do desenvolvimento do movimento e da postura, causando <strong>limitação de atividades</strong>, atribuídos a distúrbios <strong>não progressivos</strong> ocorridos no <strong>cérebro em desenvolvimento (fetal ou infantil)</strong>."
+    </div>
+    <p>Os distúrbios motores são frequentemente acompanhados de alterações da <strong>sensação, percepção, cognição, comunicação, comportamento</strong>, por <strong>epilepsia</strong> e por <strong>problemas musculoesqueléticos secundários</strong>.</p>
+    <div class="nao">
+      Não confundir: a <strong>lesão cerebral é não progressiva</strong> (estática), mas as <strong>alterações musculoesqueléticas (deformidades, contraturas) PROGRIDEM</strong> com o tempo se não tratadas.
+    </div>
+
+    <h3>Principais causas / mecanismos</h3>
+    <ul>
+      <li><strong>Hemorragia peri-intraventricular (HPIV):</strong> graus I a IV (grau IV = infarto hemorrágico periventricular, com possível hidrocefalia).</li>
+      <li><strong>Encefalopatia hipóxico-isquêmica (EHI):</strong> falta de oxigenação (hipóxia) ou perfusão (isquemia) no RN. ~30% dos RNs com EHI não sobrevivem; 20–40% dos sobreviventes desenvolvem deficiência neurológica crônica.</li>
+    </ul>
+    <p class="muted">Fatores de risco da EHI: doenças/complicações maternas (hipertensão, pré-eclâmpsia, DM, infecção), complicações intraparto (fórceps/vácuo, prolapso de cordão) e condições neonatais (prematuridade, pós-maturidade, macrossomia, gemelaridade).</p>
+    <p>O dano cerebral gera desenvolvimento desorganizado do controle postural: <strong>hipertonia ou hipotonia com fraqueza, cocontrações excessivas, controle motor seletivo ruim</strong> e posturas anormais.</p>
+  </section>
+
+  <!-- 3. PC CLASS -->
+  <section id="pc-class">
+    <h2>4. PC — Classificação <span class="tag">decorar</span></h2>
+    <p class="lead">Pode ser classificada pelo distúrbio motor, pela topografia e pela função.</p>
+
+    <h3>① Pelo distúrbio motor (tipo de tônus)</h3>
+    <table>
+      <thead><tr><th>Tipo</th><th>Tônus</th><th>Característica</th><th>Local da lesão</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Espástica</strong></td><td>Aumentado</td><td>Espasticidade, hiper-reflexia, clônus, Babinski +, fraqueza (sinais piramidais)</td><td><strong>Córtex motor</strong></td></tr>
+        <tr><td><strong>Discinética</strong> (distônica e atetoide)</td><td>Flutuante</td><td>Movimentos involuntários, incontrolados, recorrentes; reflexos primitivos predominantes; fala afetada, <strong>cognição preservada</strong></td><td><strong>Núcleos da base</strong> (tálamo, tronco, cerebelo)</td></tr>
+        <tr><td><strong>Atáxica</strong></td><td>Baixo</td><td>Perda da coordenação, dismetria, marcha atáxica, tremor intencional</td><td><strong>Cerebelo</strong></td></tr>
+      </tbody>
+    </table>
+    <p class="muted"><strong>Atetoide:</strong> movimentos rotacionais de músculos distais (mãos, dedos, pés, perioral) que aumentam no movimento voluntário/emoção; intelecto geralmente normal.</p>
+
+    <h3>② Pela topografia (distribuição anatômica)</h3>
+    <p>Pode ser descrita como <strong>unilateral</strong> ou <strong>bilateral</strong>. Quadros clássicos:</p>
+    <table>
+      <thead><tr><th>Quadro</th><th>Característica-chave</th><th>Padrão patológico típico</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Hemiplegia</strong></td><td>Um hemicorpo; tende a cair para o lado acometido; negligência do lado afetado</td><td>MS: flexão de cotovelo, pronação, flexão de punho, polegar aduzido. MI: flexão/RI de quadril, joelho em hiperextensão, pé equino</td></tr>
+        <tr><td><strong>Diplegia</strong></td><td>4 membros, predomínio de MMII; senta em "W"; "pulo de coelho"</td><td>MMII: RI, adução (postura em <strong>tesoura</strong>), risco de subluxação de quadril, pés equinos</td></tr>
+        <tr><td><strong>Quadriplegia/Tetraplegia</strong></td><td>4 membros, assimétrico; não retifica cabeça; postura em RTCA; forte retração de pescoço</td><td>Maior comprometimento; muitos não sentam/andam (GMFCS IV–V)</td></tr>
+      </tbody>
+    </table>
+
+    <h3>③ Classificação funcional</h3>
+    <h4>GMFCS — Função Motora Grossa</h4>
+    <ul>
+      <li>Baseado na <strong>autoiniciação do movimento</strong>, com ênfase no <strong>sentar (controle de tronco) e andar</strong>.</li>
+      <li><strong>5 níveis:</strong> Nível I = mais funcional → Nível V = maior comprometimento.</li>
+      <li>A princípio não se esperam mudanças de nível; alguns sobem na infância mas tendem a voltar ao nível primário na adolescência/fase adulta.</li>
+    </ul>
+    <h4>MACS — Habilidade Manual</h4>
+    <ul>
+      <li>Descreve como a criança usa as mãos para <strong>manipular objetos</strong> no dia a dia (habilidade global, não cada mão). <strong>5 níveis</strong>.</li>
+      <li>Idade: <strong>4–18 anos</strong>. <strong>Mini-MACS: 1–4 anos</strong>.</li>
+    </ul>
+    <div class="box prova">
+      GMFCS = <strong>pernas/tronco</strong> (motora grossa, sentar/andar). MACS = <strong>mãos</strong> (manipular objetos). Ambos com <strong>5 níveis</strong>. Não troque um pelo outro!
+    </div>
+  </section>
+
+  <!-- 4. PC DIAG -->
+  <section id="pc-diag">
+    <h2>5. PC — Diagnóstico precoce <span class="tag">essencial</span></h2>
+    <p class="lead">Tema atual e muito cobrado (Novak et al., 2017).</p>
+    <p>O antigo "período silencioso" (até 12–24 meses) está <strong>desatualizado</strong>: a PC ou "alto risco de PC" pode ser prevista com precisão <strong>antes dos 6 meses de idade corrigida</strong>. Quando há suspeita sem certeza, usa-se o diagnóstico provisório de <strong>"alto risco de PC"</strong>.</p>
+
+    <h3>⭐ Tripé das avaliações mais preditivas (antes dos 5 meses)</h3>
+    <table>
+      <thead><tr><th>Instrumento</th><th>Sensibilidade</th></tr></thead>
+      <tbody>
+        <tr><td><strong>RMN neonatal</strong> (ressonância magnética)</td><td>86–89%</td></tr>
+        <tr><td><strong>GMs — Avaliação de Movimentos Gerais de Prechtl</strong></td><td><strong>98%</strong></td></tr>
+        <tr><td><strong>HINE — Hammersmith Infant Neurological Examination</strong></td><td>90%</td></tr>
+      </tbody>
+    </table>
+
+    <div class="box prova">
+      Sinais de alerta (Novak): qualquer criança com (a) incapacidade de <strong>sentar sozinha aos 9 meses</strong>, (b) <strong>assimetria de função da mão</strong>, ou (c) incapacidade de suportar peso na superfície plantar → deve receber investigação padronizada para PC.
+    </div>
+
+    <h3>HINE em detalhe</h3>
+    <ul>
+      <li>Exame neurológico simples, <strong>26 itens</strong>, cada um de <strong>0 a 3 pontos</strong>; bebês de <strong>2 a 24 meses</strong>.</li>
+      <li>Avalia nervos cranianos, movimentos, reflexos/reações e comportamento.</li>
+      <li>Forte validade preditiva para PC mesmo antes dos 5 meses (sobretudo combinado à RM).</li>
+      <li><strong>Cortes:</strong> &lt;57 pontos aos 3 meses prevê PC; &lt;73 entre 6–12 meses indica PC; <strong>&lt;40 em qualquer idade = alto risco de PC</strong>. Escores ótimos: ≥73 (9–12 m).</li>
+    </ul>
+  </section>
+
+  <!-- 5. PC INTERV -->
+  <section id="pc-interv">
+    <h2>6. PC — Intervenção fisioterapêutica <span class="tag">essencial</span></h2>
+    <p class="lead">A lógica atual: evidência + funcionalidade (CIF), não mais só "normalizar o tônus".</p>
+
+    <h3>Mudança de foco</h3>
+    <table>
+      <thead><tr><th>Antes</th><th>Agora</th></tr></thead>
+      <tbody>
+        <tr><td>Remediar alterações: "inibir reflexos primitivos", "normalizar tônus", "diminuir compensações"</td><td>Promover <strong>atividade e participação</strong>: "correr", "andar de bicicleta", "entrar no ônibus sozinho", "vestir-se sozinha"</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Semáforo de evidências (Evidence Alert Traffic Lights)</h3>
+    <div class="traffic">
+      <div class="tl green"><b>🟢 Verde — FAÇA</b>Estudos de alta qualidade com efeitos positivos (ECRs/revisões sistemáticas).</div>
+      <div class="tl yellow"><b>🟡 Amarelo — CAUTELA</b>Provavelmente faça / não se sabe / provavelmente não faça (evidência conflitante ou ausente).</div>
+      <div class="tl red"><b>🔴 Vermelho — NÃO FAÇA</b>Alta qualidade mostrando efeito negativo ou prejuízo.</div>
+    </div>
+
+    <h3>Tripé da Prática Baseada em Evidência</h3>
+    <div class="chips">
+      <span class="chip g">Melhor evidência científica disponível</span>
+      <span class="chip g">Experiência clínica do terapeuta</span>
+      <span class="chip g">Preferências da criança e da família</span>
+    </div>
+    <p>Objetivos definidos <strong>junto com a família</strong>, em todos os componentes da CIF, divididos em <strong>curto prazo</strong> (habilidades emergentes/prioridades) e <strong>médio-longo prazo</strong> (metas futuras, considerando prognóstico).</p>
+
+    <h3>Manejo do tônus / espasticidade</h3>
+    <ul>
+      <li><strong>Medicamentoso/cirúrgico:</strong> medicação, <strong>toxina botulínica</strong>, <strong>rizotomia dorsal seletiva</strong>.</li>
+      <li><strong>Fisioterápico:</strong> movimentos de grande amplitude (↓ tônus, mantêm alinhamento e transferência de peso); <strong>rotações</strong> (↓ hipertonia, modificam padrões anormais); prevenção de contraturas; facilitação de movimentos ativos, reações de equilíbrio/endireitamento e proteção; tratamento precoce e interdisciplinar.</li>
+    </ul>
+
+    <h3>Vigilância do quadril</h3>
+    <div class="ok">
+      Monitora o desenvolvimento da articulação para retardar/reverter o deslocamento. <strong>Maior risco: GMFCS III, IV e V</strong> — por espasticidade (adutores/flexores), desequilíbrio muscular, crescimento ósseo anormal e posturas prolongadas. Sem acompanhamento → dor, deformidade fixa, perda de função e cirurgia invasiva.
+    </div>
+  </section>
+
+  <!-- 6. AME -->
+  <section id="ame">
+    <h2>7. Amiotrofia Muscular Espinhal (AME) <span class="tag">essencial</span></h2>
+    <p class="lead">Doença genética do neurônio motor inferior.</p>
+
+    <h3>O que é</h3>
+    <ul>
+      <li>Doença <strong>genética, autossômica recessiva</strong>, que acomete o <strong>corno anterior da medula</strong> (neurônio motor inferior) por falta da proteína <strong>SMN (Survival Motor Neuron)</strong>.</li>
+      <li>Gene <strong>SMN1</strong> (cromossomo <strong>5q</strong>) produz 85% da proteína; SMN2 só 15%. Causa principal = <strong>deleção</strong> em ambas as cópias do SMN1 (~97% dos casos).</li>
+      <li>Sintomas: <strong>fraqueza e atrofia muscular progressivas</strong>. Quanto <strong>mais precoce o início, mais grave</strong>.</li>
+    </ul>
+
+    <h3>Tipos (0 a 4)</h3>
+    <table>
+      <thead><tr><th>Tipo</th><th>Início</th><th>Marco motor máximo</th></tr></thead>
+      <tbody>
+        <tr><td><strong>0</strong> (pré-natal/1A)</td><td>Gestação</td><td>Fraqueza grave + insuficiência respiratória; não resiste além do 1º mês</td></tr>
+        <tr><td><strong>1</strong> (infantil grave)</td><td>Até 6 meses</td><td><strong>Não senta</strong>; suporte ventilatório; fasciculação de língua, disfagia</td></tr>
+        <tr><td><strong>2</strong> (intermediária)</td><td>6–18 meses</td><td><strong>Senta sem apoio, mas não anda</strong></td></tr>
+        <tr><td><strong>3</strong> (juvenil — Kugelberg-Welander)</td><td>Após 18 meses</td><td><strong>Anda</strong>, mas pode perder; pernas > braços; sinal de Gowers</td></tr>
+        <tr><td><strong>4</strong> (adulta)</td><td>20–30 anos</td><td>Forma + branda (&lt;5%); marcha até ~60 anos</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Diagnóstico e tratamento</h3>
+    <ul>
+      <li><strong>Diagnóstico:</strong> teste genético molecular (técnica <strong>MLPA</strong> detecta deleção do SMN1). Em caso de suspeita, partir direto para o genético.</li>
+      <li><strong>Terapias modificadoras (baseadas em SMN):</strong> <strong>Zolgensma</strong> (terapia gênica IV, dose única, até 6 meses, tipo 1); <strong>Spinraza/Nusinersena</strong> (intratecal, no canal espinhal); <strong>Risdiplam/Evrysdi</strong> (oral diário).</li>
+      <li><strong>Fator tempo:</strong> início precoce é crucial — no tipo 1, 90% dos neurônios motores morrem até os 6 meses e <strong>não regeneram</strong>.</li>
+    </ul>
+    <p class="muted">Escalas: <strong>CHOP INTEND</strong> (tipo 1, 16 itens) e <strong>HFMSE</strong> (tipos 2 e 3, inclui 13 itens da GMFM). Fisioterapia: prevenir deformidades (alongamento/órteses), otimizar função, cuidar com a <strong>fadiga</strong>.</p>
+  </section>
+
+  <!-- 7. DISTROFIAS -->
+  <section id="distrofias">
+    <h2>8. Distrofias Musculares <span class="tag">essencial</span></h2>
+    <p class="lead">Doenças genéticas com fraqueza e atrofia muscular progressivas.</p>
+
+    <h3>Conceito</h3>
+    <ul>
+      <li>Grupo heterogêneo de origem <strong>genética</strong>, caráter <strong>progressivo e degenerativo</strong>: <strong>fraqueza progressiva e atrofia muscular</strong>.</li>
+      <li>Distribuição <strong>simétrica</strong>; <strong>somatossensação intacta</strong> e <strong>reflexos cutâneos preservados</strong>.</li>
+      <li>Mais comuns: Duchenne, Becker, Cinturas, Facioescápulo-umeral.</li>
+    </ul>
+
+    <h3>Distrofia Muscular de Duchenne (DMD)</h3>
+    <div class="ok">
+      Doença muscular hereditária <strong>mais comum da infância</strong> e <strong>mais grave</strong> das neuromusculares. Causada pela <strong>ausência/menor produção de DISTROFINA</strong> (ligada ao cromossomo <strong>X</strong> — afeta meninos). A falta de distrofina rompe o sarcolema → entrada de Ca²⁺ → necrose → substituição por <strong>fibrose e tecido adiposo</strong>.
+    </div>
+    <ul>
+      <li><strong>Sinal de Gowers:</strong> a criança "sobe" pelo próprio corpo para levantar-se do chão (fraqueza proximal).</li>
+      <li><strong>Pseudo-hipertrofia de panturrilha</strong>; fraqueza proximal simétrica (MMII > MMSS).</li>
+    </ul>
+
+    <h3>Distrofia Muscular de Becker</h3>
+    <ul>
+      <li>Forma <strong>mais branda</strong>: a distrofina <strong>está presente, porém em níveis/forma anormais</strong>. Também recessiva ligada ao X. Início ~11 anos.</li>
+      <li>Marcha na ponta dos pés, cãibras; pseudo-hipertrofia de panturrilha; ~40% ficam dependentes de cadeira de rodas; risco de <strong>miocardiopatia dilatada</strong> e insuficiência respiratória. Marcha independente nunca perdida antes dos 16 anos.</li>
+    </ul>
+
+    <h3>Avaliação fisioterapêutica (testes cronometrados)</h3>
+    <p>Força muscular (declina com os anos), ADM (contraturas em tornozelo, joelho, quadril) e testes funcionais cronometrados: sentar-levantar, <strong>TC6 (caminhada de 6 min)</strong>, subir/descer degraus.</p>
+    <div class="box prova">
+      Preditores de perda de marcha em 2 anos: criança que leva <strong>&gt;9 segundos para andar 10 m</strong> ou que <strong>não se levanta do chão sem ajuda</strong>.
+    </div>
+  </section>
+
+  <!-- 8. MMC -->
+  <section id="mmc">
+    <h2>9. Mielomeningocele (Espinha Bífida) <span class="tag">essencial</span></h2>
+    <p class="lead">Defeito de fechamento do tubo neural.</p>
+
+    <h3>Conceito</h3>
+    <ul>
+      <li><strong>Defeitos do tubo neural (DFTN):</strong> falha no fechamento do tubo neural na <strong>4ª semana</strong> embrionária. Cranial → encefalocele/anencefalia; caudal → meningocele/mielomeningocele.</li>
+      <li><strong>Mielomeningocele = 85% dos DFTN</strong>; região + frequente = <strong>lombossacra</strong>.</li>
+      <li><strong>Prevenção:</strong> <strong>ácido fólico</strong> 0,4 mg/dia pré-concepção reduz o risco em <strong>70–80%</strong>. Diagnóstico por USG fetal; cirurgia fetal antes da 27ª semana.</li>
+    </ul>
+
+    <h3>Manifestações clínicas</h3>
+    <div class="chips">
+      <span class="chip">Paralisia flácida</span><span class="chip">↓ força muscular</span><span class="chip">Atrofia</span>
+      <span class="chip">↓/abolição de reflexos</span><span class="chip">↓ sensibilidade</span><span class="chip">Incontinência vesical</span>
+      <span class="chip">Deformidades</span><span class="chip">Hidrocefalia</span>
+    </div>
+
+    <h3>Nível neurológico (segmento mais caudal normal)</h3>
+    <table>
+      <thead><tr><th>Nível</th><th>Função preservada</th></tr></thead>
+      <tbody>
+        <tr><td>L2</td><td>Flexores de quadril</td></tr>
+        <tr><td>L3</td><td>Extensores de joelho</td></tr>
+        <tr><td>L4</td><td>Dorsiflexores do tornozelo</td></tr>
+        <tr><td>L5</td><td>Extensor longo dos dedos</td></tr>
+        <tr><td>S1</td><td>Flexão plantar do tornozelo</td></tr>
+      </tbody>
+    </table>
+    <div class="box prova">
+      Regra do prognóstico: <strong>quanto mais alto o nível neurológico, maior a paralisia e pior o prognóstico de deambulação.</strong> Outros fatores: deformidades, obesidade, hidrocefalia/medula presa, déficit cognitivo, nível socioeconômico.
+    </div>
+
+    <h3>Classificação da deambulação</h3>
+    <ul>
+      <li><strong>Comunitária:</strong> anda dentro e fora de casa (com/sem órtese); cadeira só p/ longas distâncias.</li>
+      <li><strong>Domiciliar:</strong> anda só em casa, curtas distâncias com órteses; cadeira p/ longas distâncias.</li>
+      <li><strong>Não funcional:</strong> só deambula na fisioterapia; cadeira na maioria das atividades.</li>
+      <li><strong>Não deambulador:</strong> cadeira de rodas em todas as atividades.</li>
+    </ul>
+    <p class="muted">Classificação funcional <strong>MMFC1–4</strong> (por músculos preservados) e <strong>FMS — Escala de Mobilidade Funcional</strong> em 3 distâncias: casa (5 m), escola (50 m) e comunidade (500 m).</p>
+  </section>
+
+  <!-- 9. DOWN -->
+  <section id="down">
+    <h2>10. Síndrome de Down <span class="tag">essencial</span></h2>
+    <p class="lead">Trissomia do cromossomo 21 (T21).</p>
+
+    <h3>Conceito e ocorrência</h3>
+    <ul>
+      <li>Presença de um <strong>cromossomo extra no par 21</strong> (trissomia do 21 / T21). É a <strong>principal causa de deficiência intelectual</strong> e a alteração cromossômica mais prevalente em humanos.</li>
+      <li>Incidência ~<strong>1 em 600</strong> partos no Brasil; ocorre independente de etnia, sexo ou classe social. Maior risco associado à <strong>idade materna avançada (&gt;35 anos)</strong>.</li>
+      <li>Sinais sugestivos no pré-natal (a partir da 11ª semana): <strong>translucência nucal aumentada</strong> e <strong>ausência/hipoplasia do osso nasal</strong>.</li>
+    </ul>
+
+    <h3>⭐ As 3 vias da trissomia do 21</h3>
+    <table>
+      <thead><tr><th>Tipo</th><th>Incidência</th><th>Origem</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Trissomia simples</strong> (livre)</td><td><strong>95%</strong></td><td>Não disjunção meiótica (casual); cromossomo 21 extra livre em todas as células (47,XX/XY +21)</td></tr>
+        <tr><td><strong>Translocação</strong></td><td>3–4%</td><td>21 extra ligado a outro cromossomo (frequentemente o 14); casual ou <strong>herdada</strong> de um dos pais</td></tr>
+        <tr><td><strong>Mosaico</strong></td><td>1–2% (mais raro)</td><td>Casual após a fecundação; duas linhagens celulares (uma normal 46, outra trissômica 47)</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Fenótipo característico</h3>
+    <p><strong>Craniofacial:</strong> fendas palpebrais oblíquas para cima, epicanto, face aplanada, orelhas de implantação baixa, protrusão lingual, palato ogival. <strong>Apendicular/sistêmico:</strong> <strong>prega simiesca</strong> (prega palmar única), clinodactilia do 5º dedo, braquidactilia, afastamento entre 1º e 2º dedos do pé, pé plano, diástase dos retos abdominais e hérnia umbilical.</p>
+
+    <h3>SNC e cognição</h3>
+    <ul>
+      <li>Comprometimento desde a vida intrauterina: <strong>número reduzido de células do SNC</strong>, redução da espessura cortical, do volume cerebral/cerebelar e do tronco encefálico, e redução da liberação de neurotransmissores.</li>
+      <li>Comprometimento cognitivo presente em todos, em graus: <strong>leve (QI 50–70), moderado (35–50) e severo (20–35)</strong>.</li>
+    </ul>
+
+    <div class="ok">
+      <strong>Tríade neuromusculoesquelética</strong> (cai em prova): <strong>hipotonia + fraqueza muscular + hipermobilidade/frouxidão articular</strong> → déficit de equilíbrio estático/dinâmico, déficit de controle postural e falhas de coordenação. Tende a gerar hiperlordose lombar e protrusão abdominal, além de <strong>atraso na aquisição dos marcos motores</strong> (sentar, engatinhar, andar).
+    </div>
+
+    <div class="dica">
+      A avaliação da funcionalidade deve ser <strong>alinhada à CIF</strong>, contextualizada e individualizada. O <strong>Protocolo FADS</strong> (6–17 anos) foi proposto para avaliar a funcionalidade com base nos componentes da CIF, por falta de protocolos específicos para essa população. A intervenção foca em controle postural, força, marcos motores e participação.
+    </div>
+  </section>
+
+  <!-- 10. ESCALAS -->
+  <section id="escalas">
+    <h2>11. Escalas de avaliação — resumo <span class="tag">cola rápida</span></h2>
+    <p class="lead">Tabela-resumo para revisar de última hora qual escala serve para quê.</p>
+    <table>
+      <thead><tr><th>Escala</th><th>Para que serve</th><th>Detalhe-chave</th></tr></thead>
+      <tbody>
+        <tr><td><strong>CIF</strong></td><td>Modelo biopsicossocial de funcionalidade (OMS)</td><td>Funções/Estruturas, Atividade, Participação + fatores ambientais e pessoais</td></tr>
+        <tr><td><strong>GMFCS</strong></td><td>Classifica função motora grossa na PC</td><td>5 níveis (I→V); foco em sentar e andar</td></tr>
+        <tr><td><strong>GMFM</strong></td><td>Mede a função motora grossa (desfecho/evolução); validada para <strong>PC e Down</strong></td><td><strong>88 itens</strong> em <strong>5 dimensões</strong>: A) deitar e rolar · B) sentar · C) engatinhar e ajoelhar · D) em pé · E) andar, correr e saltar. Aplicação 45–60 min</td></tr>
+        <tr><td><strong>MACS / Mini-MACS</strong></td><td>Habilidade manual na PC</td><td>5 níveis; 4–18 anos (Mini: 1–4 anos)</td></tr>
+        <tr><td><strong>HINE</strong></td><td>Exame neurológico infantil (diagnóstico precoce de PC)</td><td>26 itens (0–3); 2–24 meses; &lt;40 = alto risco</td></tr>
+        <tr><td><strong>GMs de Prechtl</strong></td><td>Movimentos gerais — predição precoce de PC</td><td>98% de sensibilidade</td></tr>
+        <tr><td><strong>CHOP INTEND</strong></td><td>Função neuromuscular em AME tipo 1</td><td>16 itens; reflexos + força de cabeça/tronco/membros</td></tr>
+        <tr><td><strong>HFMSE</strong></td><td>Função motora em AME tipos 2 e 3</td><td>Inclui 13 itens da GMFM</td></tr>
+        <tr><td><strong>FMS</strong></td><td>Mobilidade funcional (PC e MMC)</td><td>3 distâncias: 5 m (casa), 50 m (escola), 500 m (comunidade)</td></tr>
+        <tr><td><strong>FSA</strong></td><td>Avaliação de força funcional na PC</td><td>Functional Strength Assessment</td></tr>
+        <tr><td><strong>FADS</strong></td><td>Funcionalidade na Síndrome de Down</td><td>Baseado na CIF; 6–17 anos</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- FLASHCARDS -->
+  <section id="flashcards">
+    <h2>🃏 Flashcards de revisão <span class="tag">teste-se</span></h2>
+    <p class="lead">Toque em cada card para revelar a resposta.</p>
+    <div class="cards" id="cards"></div>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz">
+    <h2>✍️ Quiz rápido <span class="tag">teste-se</span></h2>
+    <p class="lead">Clique na alternativa correta — a explicação aparece em seguida.</p>
+    <div class="quiz" id="quiz"></div>
+  </section>
+
+  </main>
+</div>
+
+<a href="#" class="top" aria-label="Voltar ao topo">↑</a>
+
+<footer>
+  Material de estudo gerado a partir dos PDFs de Fisioterapia Neuropediátrica.<br>
+  Conteúdo das aulas da Prof.ª Dra. Eloá Chiquetti e materiais complementares. Boa prova! 🍀
+</footer>
+
+<script>
+const flashcards = [
+  ["Definição de PC (Rosenbaum, 2007)?","Grupo de distúrbios permanentes do movimento/postura por lesão NÃO progressiva no cérebro em desenvolvimento (fetal/infantil)."],
+  ["A lesão da PC progride?","Não — a lesão é estática; mas as alterações musculoesqueléticas (contraturas/deformidades) progridem se não tratadas."],
+  ["3 tipos de PC pelo tônus e local da lesão?","Espástica (↑tônus, córtex) · Discinética (flutuante, núcleos da base) · Atáxica (↓tônus, cerebelo)."],
+  ["O que mede o GMFCS?","Função motora grossa na PC — 5 níveis (I melhor → V pior), foco em sentar e andar."],
+  ["O que mede o MACS?","Habilidade manual (manipular objetos) — 5 níveis; 4–18 anos (Mini-MACS 1–4 anos)."],
+  ["Tripé do diagnóstico precoce de PC (Novak 2017)?","RMN neonatal + GMs de Prechtl (98%) + HINE (90%)."],
+  ["Quantos itens e faixa etária do HINE?","26 itens (0–3 pontos cada), bebês de 2–24 meses. <40 = alto risco de PC."],
+  ["Significado do semáforo verde/amarelo/vermelho?","Verde = FAÇA (evidência positiva); Amarelo = CAUTELA; Vermelho = NÃO FAÇA (efeito negativo)."],
+  ["Quais GMFCS têm maior risco de luxação de quadril?","Níveis III, IV e V (vigilância do quadril)."],
+  ["Gene e proteína da AME?","Gene SMN1 (cromossomo 5q); proteína SMN. Autossômica recessiva."],
+  ["AME tipo 1 vs tipo 2 (marco motor)?","Tipo 1 não senta; Tipo 2 senta sem apoio mas não anda."],
+  ["3 tratamentos modificadores da AME?","Zolgensma (gênico IV), Spinraza/Nusinersena (intratecal), Risdiplam (oral)."],
+  ["Proteína ausente na Distrofia de Duchenne?","Distrofina (ligada ao cromossomo X)."],
+  ["O que é o sinal de Gowers?","Criança 'sobe' pelo próprio corpo para se levantar do chão (fraqueza proximal)."],
+  ["Duchenne x Becker?","Duchenne: ausência de distrofina, grave. Becker: distrofina presente mas anormal, mais branda."],
+  ["% de DFTN que é mielomeningocele e região mais comum?","85% dos DFTN; região lombossacra."],
+  ["Prevenção da espinha bífida?","Ácido fólico 0,4 mg/dia pré-concepção → reduz risco em 70–80%."],
+  ["Regra do prognóstico de marcha na MMC?","Quanto mais alto o nível neurológico, pior o prognóstico de deambulação."],
+  ["O que caracteriza a Síndrome de Down no motor?","Trissomia do 21; hipotonia + frouxidão ligamentar → atraso dos marcos motores."],
+  ["O que é a CIF e o que ela complementa?","Modelo biopsicossocial da OMS; complementa a CID (não substitui). Mesmo diagnóstico ≠ mesma funcionalidade."],
+  ["As 6 fases da neurogênese?","Neurulação → desenvolvimento do prosencéfalo → proliferação → migração → organização → mielinização."],
+  ["Onde ocorre a proliferação e por onde se dá a migração neuronal?","Proliferação na matriz germinativa; migração pela glia radial até o córtex."],
+  ["Por que o recém-nascido é descoordenado?","Organização sináptica e mielinização ainda incompletas — sem mielina o impulso 'vaza' (sinal lento/difuso)."],
+  ["Via piramidal x extrapiramidal?","Piramidal = rota direta (córtico-espinhal/córtico-nuclear, passa pelas pirâmides). Extrapiramidal = suporte/postura (rubro, tecto, vestíbulo e retículo-espinhal)."],
+  ["Fator psicossocial mais impactante no desenvolvimento infantil?","Pobreza extrema — multiplicador de danos."],
+  ["As 3 vias da trissomia do 21?","Simples/livre (95%), Translocação (3–4%, pode ser herdada), Mosaico (1–2%)."],
+  ["Tríade neuromusculoesquelética da Síndrome de Down?","Hipotonia + fraqueza muscular + hipermobilidade/frouxidão articular."],
+  ["Quantos itens e dimensões tem a GMFM?","88 itens em 5 dimensões: A) deitar/rolar, B) sentar, C) engatinhar/ajoelhar, D) em pé, E) andar/correr/saltar."]
+];
+const cc=document.getElementById('cards');
+flashcards.forEach(([q,a])=>{const d=document.createElement('div');d.className='fc';d.innerHTML=`<div class="q">${q}</div><div class="a">${a}</div>`;d.onclick=()=>d.classList.toggle('flip');cc.appendChild(d);});
+
+const quiz=[
+  {q:"Sobre a definição de Paralisia Cerebral, é correto afirmar:",
+   o:["A lesão cerebral é progressiva","A lesão é não progressiva, mas as alterações musculoesqueléticas progridem","Ocorre apenas após os 2 anos de idade","Não há comprometimento cognitivo associado"],
+   c:1,e:"A lesão é estática (não progressiva), porém deformidades/contraturas progridem se não tratadas."},
+  {q:"A PC discinética está associada a lesão em:",
+   o:["Córtex motor","Cerebelo","Núcleos da base","Medula espinhal"],
+   c:2,e:"Discinética (tônus flutuante, movimentos involuntários) → núcleos da base. Espástica = córtex; atáxica = cerebelo."},
+  {q:"O GMFCS classifica:",
+   o:["A habilidade manual em 5 níveis","A função motora grossa em 5 níveis","O nível de comunicação","A força muscular cronometrada"],
+   c:1,e:"GMFCS = função motora grossa (sentar/andar), 5 níveis. Habilidade manual é o MACS."},
+  {q:"Qual instrumento tem 98% de sensibilidade para predição precoce de PC?",
+   o:["RMN neonatal","HINE","GMs de Prechtl","GMFM"],
+   c:2,e:"As Avaliações de Movimentos Gerais (GMs) de Prechtl têm 98% de sensibilidade (Novak, 2017)."},
+  {q:"O gene e a proteína envolvidos na AME são:",
+   o:["Distrofina / cromossomo X","SMN1 / proteína SMN (cromossomo 5q)","FMR1 / FMRP","Ácido fólico / tubo neural"],
+   c:1,e:"AME: gene SMN1 no cromossomo 5q, proteína SMN. Autossômica recessiva."},
+  {q:"O sinal de Gowers é típico de:",
+   o:["Ataxia cerebelar","Distrofia muscular (fraqueza proximal)","Hidrocefalia","Espasticidade de adutores"],
+   c:1,e:"Gowers = a criança escala o próprio corpo para se levantar, indicando fraqueza muscular proximal (clássico na Duchenne)."},
+  {q:"A proteína ausente na Distrofia Muscular de Duchenne é:",
+   o:["SMN","Distrofina","Miosina","Actina"],
+   c:1,e:"Duchenne = ausência de distrofina (ligada ao X). Em Becker a distrofina existe, mas anormal."},
+  {q:"A prevenção da mielomeningocele se faz principalmente com:",
+   o:["Toxina botulínica","Ácido fólico pré-concepção","Suplementação de cálcio","Rizotomia dorsal"],
+   c:1,e:"Ácido fólico 0,4 mg/dia antes da concepção reduz o risco de DFTN em 70–80%."},
+  {q:"Sobre o prognóstico de deambulação na mielomeningocele:",
+   o:["Quanto mais alto o nível neurológico, melhor a marcha","O nível neurológico não influencia","Quanto mais alto o nível, pior o prognóstico de marcha","Todos os pacientes deambulam na comunidade"],
+   c:2,e:"Quanto mais alto (cranial) o nível da lesão, maior a paralisia e pior o prognóstico de deambulação."},
+  {q:"O modelo da CIF (OMS) propõe que:",
+   o:["O diagnóstico determina sozinho a funcionalidade","Mesmo diagnóstico pode gerar funcionalidades diferentes conforme o contexto","Substitui a CID","Avalia apenas estrutura e função do corpo"],
+   c:1,e:"A CIF é biopsicossocial: pessoas com o mesmo diagnóstico funcionam diferente conforme fatores ambientais e pessoais. Complementa a CID."},
+  {q:"Na neurogênese, a migração neuronal ocorre principalmente:",
+   o:["Pela matriz germinativa","Através da glia radial até o córtex","Após o 2º ano de vida","Pela bainha de mielina"],
+   c:1,e:"Os neurônios migram da matriz germinativa até o córtex usando a glia radial como 'rodovia', completando-se ~34ª–36ª semana."},
+  {q:"A maior parte da organização sináptica e da mielinização ocorre:",
+   o:["Inteiramente no útero","Majoritariamente após o nascimento","Apenas no período embrionário","Antes da proliferação neuronal"],
+   c:1,e:"Por isso o RN tem o SNC imaturo: organização sináptica (5º mês→1º ano) e mielinização (2º trimestre→vida adulta) acontecem muito fora do útero."},
+  {q:"A forma mais comum de trissomia do 21 é:",
+   o:["Mosaico","Translocação","Trissomia simples (livre), ~95%","Monossomia"],
+   c:2,e:"Trissomia simples por não disjunção meiótica responde por ~95% dos casos; translocação 3–4% e mosaico 1–2%."},
+  {q:"A tríade neuromusculoesquelética da Síndrome de Down é:",
+   o:["Espasticidade + clônus + Babinski","Hipotonia + fraqueza muscular + hipermobilidade articular","Atetose + ataxia + tremor","Hipertonia + contraturas + deformidades"],
+   c:1,e:"Hipotonia + fraqueza + frouxidão ligamentar → déficit de equilíbrio e controle postural, com atraso motor."},
+  {q:"A GMFM é composta por:",
+   o:["26 itens em 4 fases","88 itens em 5 dimensões (A a E)","5 níveis de função","16 itens para AME tipo 1"],
+   c:1,e:"GMFM = 88 itens em 5 dimensões: deitar/rolar, sentar, engatinhar/ajoelhar, em pé e andar/correr/saltar."}
+];
+const qc=document.getElementById('quiz');
+quiz.forEach((item,i)=>{
+  const div=document.createElement('div');div.className='q-item';
+  let opts=item.o.map((t,j)=>`<span class="opt" data-i="${j}">${String.fromCharCode(65+j)}) ${t}</span>`).join('');
+  div.innerHTML=`<p class="qt">${i+1}. ${item.q}</p>${opts}<div class="expl"></div>`;
+  const expl=div.querySelector('.expl');
+  div.querySelectorAll('.opt').forEach(opt=>{opt.onclick=()=>{
+    if(div.dataset.done)return;div.dataset.done=1;const sel=+opt.dataset.i;
+    div.querySelectorAll('.opt').forEach(o=>{if(+o.dataset.i===item.c)o.classList.add('correct');});
+    if(sel!==item.c)opt.classList.add('wrong');
+    expl.textContent=(sel===item.c?'✓ Correto! ':'✗ ')+item.e;expl.classList.add('show');
+  };});
+  qc.appendChild(div);
+});
+
+/* Pesquisa */
+const sInput=document.getElementById('searchInput');
+const sInfo=document.getElementById('searchInfo');
+const mainEl=document.querySelector('main');
+let hits=[],current=-1;
+function clearHits(){document.querySelectorAll('mark.hit').forEach(m=>{const p=m.parentNode;p.replaceChild(document.createTextNode(m.textContent),m);p.normalize();});hits=[];current=-1;}
+function escapeRx(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
+function doSearch(term){
+  clearHits();term=term.trim();
+  if(term.length<2){sInfo.innerHTML='Digite ao menos 2 letras para pesquisar.';return;}
+  const rx=new RegExp(escapeRx(term),'gi');
+  [...mainEl.querySelectorAll('section')].forEach(root=>{
+    const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode(n){
+      if(!n.nodeValue.trim())return NodeFilter.FILTER_REJECT;
+      const p=n.parentNode.nodeName;
+      if(p==='SCRIPT'||p==='STYLE'||p==='MARK')return NodeFilter.FILTER_REJECT;
+      return rx.test(n.nodeValue)?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT;
+    }});
+    const nodes=[];let n;while(n=walker.nextNode())nodes.push(n);
+    nodes.forEach(node=>{
+      rx.lastIndex=0;const frag=document.createDocumentFragment();let last=0,txt=node.nodeValue,m;
+      while(m=rx.exec(txt)){
+        if(m.index>last)frag.appendChild(document.createTextNode(txt.slice(last,m.index)));
+        const mk=document.createElement('mark');mk.className='hit';mk.textContent=m[0];frag.appendChild(mk);hits.push(mk);
+        last=m.index+m[0].length;if(m[0].length===0)rx.lastIndex++;
+      }
+      if(last<txt.length)frag.appendChild(document.createTextNode(txt.slice(last)));
+      node.parentNode.replaceChild(frag,node);
+    });
+  });
+  if(hits.length){sInfo.innerHTML=`<b>${hits.length}</b> resultado(s) para "<b>${term}</b>". Use ‹ › para navegar.`;goTo(0);}
+  else{sInfo.innerHTML=`Nenhum resultado para "<b>${term}</b>". Tente outro termo.`;}
+}
+function goTo(i){
+  if(!hits.length)return;
+  if(current>=0&&hits[current])hits[current].classList.remove('current');
+  current=(i+hits.length)%hits.length;const el=hits[current];
+  el.classList.add('current');el.scrollIntoView({behavior:'smooth',block:'center'});
+  sInfo.innerHTML=`Resultado <b>${current+1}</b> de <b>${hits.length}</b>.`;
+}
+let deb;
+sInput.addEventListener('input',()=>{clearTimeout(deb);deb=setTimeout(()=>doSearch(sInput.value),250);});
+sInput.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();if(hits.length)goTo(current+1);else doSearch(sInput.value);}});
+document.getElementById('searchNext').onclick=()=>goTo(current+1);
+document.getElementById('searchPrev').onclick=()=>goTo(current-1);
+document.getElementById('searchClear').onclick=()=>{sInput.value='';clearHits();sInfo.innerHTML='Busca limpa. Digite um novo termo.';sInput.focus();};
+document.querySelectorAll('#searchSugg span').forEach(s=>{s.onclick=()=>{sInput.value=s.textContent;doSearch(s.textContent);sInput.focus();};});
+
+/* Nav ativo */
+const links=[...document.querySelectorAll('nav a')];
+const secs=links.map(l=>document.querySelector(l.getAttribute('href'))).filter(Boolean);
+const obs=new IntersectionObserver(entries=>{entries.forEach(en=>{if(en.isIntersecting){links.forEach(l=>l.classList.remove('active'));const a=links.find(l=>l.getAttribute('href')==='#'+en.target.id);if(a)a.classList.add('active');}});},{rootMargin:'-20% 0px -70% 0px'});
+secs.forEach(s=>obs.observe(s));
+links.forEach(l=>l.onclick=()=>{if(window.innerWidth<=860)document.getElementById('nav').classList.remove('open');});
+</script>
+</body>
+</html>
